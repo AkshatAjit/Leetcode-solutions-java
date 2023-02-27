@@ -1,0 +1,23 @@
+class Solution {
+    public boolean isPalindrome(int x) {
+        String s= String.valueOf(x);
+        if(s.length()==1){
+            return true;
+        }
+        if(s.charAt(0)=='-'){
+            return false;
+        }
+        int j =s.length()-1;
+        int i=0;
+        while(i<s.length()&&j>0){
+            if(s.charAt(i) ==s.charAt(j)){
+                i++;
+                j--;
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+}
