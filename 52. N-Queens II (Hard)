@@ -1,0 +1,33 @@
+class Solution {
+    public int totalNQueens(int n) {
+        int[] cols = new int[n];
+        int[] diag1 = new int[2 * n - 1];
+        int[] diag2 = new int[2 * n - 1];
+        int[] count = new int[1];
+        
+        solveNQueens(n, 0, cols, diag1, diag2, count);
+        
+        return count[0];
+    }
+    
+    private void solveNQueens(int n, int row, int[] cols, int[] diag1, int[] diag2, int[] count) {
+        if (row == n) {
+            count[0]++;
+            return;
+        }
+        
+        for (int col = 0; col < n; col++) {
+            if (cols[col] == 0 && diag1[row + col] == 0 && diag2[row - col + n - 1] == 0) {
+                cols[col] = 1;
+                diag1[row + col] = 1;
+                diag2[row - col + n - 1] = 1;
+                
+                solveNQueens(n, row + 1, cols, diag1, diag2, count);
+                
+                cols[col] = 0;
+                diag1[row + col] = 0;
+                diag2[row - col + n - 1] = 0;
+            }
+        }
+    }
+}
