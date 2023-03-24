@@ -1,0 +1,25 @@
+class Solution {
+    public int lengthOfLastWord(String s) {
+        
+        Stack<Character> stack = new Stack<>();
+        if(s.length() ==0){
+            return 0;
+        }
+        for(char c : s.toCharArray()){
+            stack.push(c);
+        }
+        int count =0;
+        while(!stack.isEmpty()){
+            char present = stack.pop();
+            if(present!=' '){
+                count += 1;
+                if(stack.isEmpty()){
+                    break;
+                }else if(stack.peek()==' '){
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+}
