@@ -1,0 +1,39 @@
+class Solution {
+    public boolean isNumber(String s) {
+        if (s == null) {
+            return false;
+        }
+        s = s.trim();
+        if (s.isEmpty()) {
+            return false;
+        }
+        boolean seenNum = false;
+        boolean seenDot = false;
+        boolean seenExp = false;
+        char prev = ' ';
+        for (char c : s.toCharArray()) {
+            if (Character.isDigit(c)) {
+                seenNum = true;
+            } else if (c == '.') {
+                if (seenDot || seenExp) {
+                    return false;
+                }
+                seenDot = true;
+            } else if (c == 'e' || c == 'E') {
+                if (seenExp || !seenNum) {
+                    return false;
+                }
+                seenExp = true;
+                seenNum = false;
+            } else if (c == '-' || c == '+') {
+                if (prev != ' ' && prev != 'e' && prev != 'E') {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+            prev = c;
+        }
+        return seenNum;
+    }
+}
