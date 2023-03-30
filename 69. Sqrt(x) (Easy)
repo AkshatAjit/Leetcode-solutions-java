@@ -1,0 +1,17 @@
+class Solution {
+    public int mySqrt(int x) {
+        if(x==0){
+            return 0;
+        }
+        if(x==1||x==2||x==3){
+            return 1;
+        }
+        double error = 0.00001;
+        double guess = x/2;
+        while(Math.abs(x-guess*guess)>error){
+            guess = (guess + x/guess)/2;
+        }
+        int output = (int)Math.floor(guess);
+        return output;
+    }
+}
