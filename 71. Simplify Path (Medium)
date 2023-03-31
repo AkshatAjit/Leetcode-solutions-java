@@ -1,0 +1,27 @@
+class Solution {
+    public String simplifyPath(String path) {
+        String[] str = path.split("/");
+        Deque<String> stack = new LinkedList<>();
+        for(String s:str){
+            if(s.equals(".")||s.isEmpty()){
+                continue;
+            }else if(s.equals("..")){
+                if(!stack.isEmpty()){
+                    stack.pop();
+                }
+            }else{
+                stack.push(s);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while(!stack.isEmpty()){
+            sb.append("/");
+            sb.append(stack.pollLast());
+        }
+        if(sb.length()==0){
+            return "/";
+        }
+        return sb.toString();
+
+    }
+}
