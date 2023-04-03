@@ -1,0 +1,18 @@
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> res = new ArrayList<>();
+        backTrack(n,k,1,new ArrayList<Integer>(),res);
+        return res;
+    }
+    public void backTrack(int n,int k,int index,ArrayList<Integer> combination,List<List<Integer>> res){
+        if(combination.size() == k){
+            res.add(new ArrayList<>(combination));
+            return;
+        }
+        for(int i =index;i<=n;i++){
+            combination.add(i);
+            backTrack(n,k,i+1,combination,res);
+            combination.remove(combination.size()-1);
+        }
+    }
+}
