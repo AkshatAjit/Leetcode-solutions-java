@@ -1,0 +1,33 @@
+class Solution {
+    public List<String> restoreIpAddresses(String s) {
+        List<String> res = new ArrayList<>();
+        backtrack(s, 0, new ArrayList<>(), res);
+        return res;
+    }
+    
+    private void backtrack(String s, int start, List<String> curr, List<String> res) {
+        if (curr.size() == 4 && start == s.length()) {
+            res.add(String.join(".", curr));
+            return;
+        }
+        if (curr.size() == 4 || start == s.length()) {
+            return;
+        }
+        for (int i = start; i < Math.min(start + 3, s.length()); i++) {
+            String sub = s.substring(start, i + 1);
+            if (isValid(sub)) {
+                curr.add(sub);
+                backtrack(s, i + 1, curr, res);
+                curr.remove(curr.size() - 1);
+            }
+        }
+    }
+    
+    private boolean isValid(String s) {
+        if (s.length() > 1 && s.charAt(0) == '0') {
+            return false;
+        }
+        int val = Integer.parseInt(s);
+        return val >= 0 && val <= 255;
+    }
+}
