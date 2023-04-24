@@ -1,0 +1,20 @@
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        List<List<Integer>> Triangle = new ArrayList<>();
+        List<Integer> firstrow = new ArrayList<>();
+        firstrow.add(1);
+        Triangle.add(firstrow);
+        for(int i =1;i<=rowIndex;i++){
+            List<Integer> previousrow = new ArrayList<>(Triangle.get(i-1));
+            List<Integer> currentrow = new ArrayList<>();
+            currentrow.add(1);
+            for(int j=1;j<i;j++){
+                int current = previousrow.get(j-1)+previousrow.get(j);
+                currentrow.add(current);
+            }
+            currentrow.add(1);
+            Triangle.add(currentrow);
+        }
+        return Triangle.get(rowIndex);
+    }
+}
