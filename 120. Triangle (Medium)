@@ -1,0 +1,19 @@
+class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int numRows = triangle.size();
+        int[][] dp = new int[numRows][numRows];
+        List<Integer> lastRow = triangle.get(numRows - 1);
+        for (int i = 0; i < lastRow.size(); i++) {
+            dp[numRows - 1][i] = lastRow.get(i);
+        }
+        for (int i = numRows - 2; i >= 0; i--) {
+            List<Integer> row = triangle.get(i);
+            for (int j = 0; j < row.size(); j++) {
+                int left = dp[i + 1][j];
+                int right = dp[i + 1][j + 1];
+                dp[i][j] = row.get(j) + Math.min(left, right);
+            }
+        }
+        return dp[0][0];
+    }
+}
