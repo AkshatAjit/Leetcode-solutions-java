@@ -1,0 +1,39 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        
+        List<List<String>> res = new ArrayList<>(); // list to store all possible palindrome partitions
+        List<String> path = new ArrayList<>(); // list to store current path
+
+        helper(0, s, path, res); // call helper function with initial parameters
+
+        return res; // return the final list
+    }
+
+    public void helper(int index, String s, List<String> path, List<List<String>> res){
+
+        if(index == s.length()){ // if the current index is equal to the length of the string, add the current path to the result list
+            res.add(new ArrayList<>(path));
+        }
+
+        for(int i = index; i < s.length(); i++){ // loop through the string starting from the current index
+
+            if(isPalindrome(s, index, i)){ // if the substring from index to i is a palindrome
+                path.add(s.substring(index, i+1)); // add the substring to the current path
+
+                helper(i+1, s, path, res); // recursively call the helper function with updated index
+
+                path.remove(path.size() - 1); // remove the last added substring from the current path
+            }
+        }
+    }
+
+    boolean isPalindrome(String s, int start, int end){ // function to check if the substring is a palindrome
+
+        while(start <= end){ // loop through the substring from both ends
+            if(s.charAt(start++) != s.charAt(end--)){ // if the characters at start and end positions are not equal, return false
+                return false;
+            }
+        }
+        return true; // return true if the substring is palindrome
+    }
+}
